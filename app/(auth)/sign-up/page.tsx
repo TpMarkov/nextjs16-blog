@@ -1,7 +1,7 @@
 "use client"
 import React, {useTransition} from 'react'
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
-import {signUpFormVlues, signUpSchema} from "@/app/schemas/auth";
+import {signUpFormValues, signUpSchema} from "@/app/schemas/auth";
 import {Controller, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {Field, FieldError, FieldGroup, FieldLabel} from "@/components/ui/field";
@@ -10,12 +10,12 @@ import {Button} from "@/components/ui/button";
 import Link from "next/link";
 import {authClient} from "@/lib/auth-client";
 import {toast} from "sonner";
-import {useRouter} from "next/navigation";
 import {Loader2Icon} from "lucide-react";
+import {useRouter} from "next/navigation";
 
 const Page = () => {
-  const router = useRouter()
   const [isPending, startTransition] = useTransition()
+  const router = useRouter()
 
   const form = useForm({
     resolver: zodResolver(signUpSchema),
@@ -26,17 +26,24 @@ const Page = () => {
     }
   });
 
-  const onSubmit = (values: signUpFormVlues) => {
+  const onSubmit = (values: signUpFormValues) => {
     startTransition(async () => {
       await authClient.signUp.email({
         email: values.email,
         name: values.name,
         password: values.password,
         fetchOptions: {
-          onSuccess: values => {
+          onSuccess: async () => {
             toast.success("Email successfully signed up!");
+            await authClient.signIn.email({
+              email: values.email,
+              password: values.password,
+            })
 
-          }, onError: (err) => {
+            router.push("/")
+          }
+          ,
+          onError: (err) => {
             toast.error(err.error.message)
           },
         }
