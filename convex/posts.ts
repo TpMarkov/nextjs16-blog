@@ -22,5 +22,23 @@ export const createPost = mutation({
   }
 })
 
+export const getPosts = query({
+  args: {},
+  handler: async (ctx, args) => {
+
+    const user = await authComponent.safeGetAuthUser(ctx)
+
+    if (!user) throw new Error("Not authenticated"
+    )
+
+    const posts = await ctx.db.query("posts").order("desc").collect()
+
+    return posts
+  }
+})
+
+
+
+
 
 

@@ -1,7 +1,7 @@
 "use client"
-import React, {startTransition, useTransition} from 'react'
+import React, {useTransition} from 'react'
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
-import {signInFormVlues, signInSchema, signUpSchema} from "@/app/schemas/auth";
+import {signInFormValues, signInSchema,} from "@/app/schemas/auth";
 import {Controller, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {Field, FieldError, FieldGroup, FieldLabel} from "@/components/ui/field";
@@ -25,7 +25,7 @@ const Page = () => {
     }
   });
 
-  const onSubmit = (values: signInFormVlues) => {
+  const onSubmit = (values: signInFormValues) => {
     startTransition(async () => {
       await authClient.signIn.email({
         email: values.email,
@@ -81,7 +81,6 @@ const Page = () => {
                 ) : "Sign In"}
               </Button>
             </FieldGroup>
-
           </form>
         </CardContent>
       </Card>
