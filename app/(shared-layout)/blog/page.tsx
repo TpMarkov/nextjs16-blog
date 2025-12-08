@@ -3,10 +3,11 @@
 import React, {useTransition} from 'react'
 import {useQuery} from "convex/react";
 import {api} from "@/convex/_generated/api";
-import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
+import {Card, CardContent, CardFooter, CardHeader, CardTitle} from "@/components/ui/card";
 import Image from "next/image";
 import {motion} from "framer-motion";
 import Link from "next/link";
+import {buttonVariants} from "@/components/ui/button";
 
 const images = [
       "https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=1200&q=80",
@@ -61,7 +62,7 @@ const Page = () => {
                   animate={{opacity: 1, y: 0}}
                   transition={{duration: 0.4, delay: index * 0.1}}
               >
-                <Card className="rounded-2xl shadow-lg hover:shadow-xl transition-all overflow-hidden">
+                <Card className="rounded-2xl pt-0 shadow-lg hover:shadow-xl transition-all overflow-hidden">
                   <motion.div whileHover={{scale: 1.05}} className="h-48 w-full relative overflow-hidden">
                     <Image
                         src={images[index] || images[0]}
@@ -72,7 +73,8 @@ const Page = () => {
                   </motion.div>
 
                   <CardHeader>
-                    <CardTitle className="text-xl font-semibold">
+                    <CardTitle
+                        className="text-xl font-semibold hover:text-blue-500/50">
                       <Link href={`/blog/${item._id}`}>
                         {item.title}
                       </Link>
@@ -80,10 +82,16 @@ const Page = () => {
                   </CardHeader>
 
                   <CardContent>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">
+                    <p className="text-sm text-muted-foreground hover:text-muted-foreground/50 dark:text-gray-300">
                       {item.body}
                     </p>
                   </CardContent>
+                  <CardFooter>
+                    <Link className={buttonVariants({variant: "outline"})}
+                          href={`/blog/${item._id}`}>
+                      Read more
+                    </Link>
+                  </CardFooter>
                 </Card>
               </motion.div>
           ))}
