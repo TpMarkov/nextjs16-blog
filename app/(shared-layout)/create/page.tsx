@@ -14,8 +14,6 @@ import {createBlogPost} from "@/app/actions";
 import {z} from "zod"
 
 
-
-
 const Page = () => {
   const [isPending, startTransition] = useTransition()
 
@@ -24,6 +22,7 @@ const Page = () => {
     defaultValues: {
       title: "",
       content: "",
+      image: undefined,
     }
   });
 
@@ -80,6 +79,23 @@ const Page = () => {
                       )}
                     </Field>
                 )} name={"content"} control={form.control}/>
+
+                <Controller render={({field, fieldState}) => (
+                    <Field>
+                      <FieldLabel>Image</FieldLabel>
+                      <Input placeholder="Type your text in here"
+                             className={"min-h-[80px] max-h-[120px] overflow-auto"} type={"file"}
+                             accept="image/*"
+                             onChange={(e) => {
+                               const file = e.target.files?.[0]
+                               field.onChange(file)
+                             }}
+                      />
+                      {fieldState.invalid && (
+                          <FieldError errors={[fieldState.error]}/>
+                      )}
+                    </Field>
+                )} name={"image"} control={form.control}/>
                 <Button disabled={isPending} type={"submit"}>
                   {isPending ? (<Loader2Icon className={"size-4 animate-spin"}/>) : "Create Post"}
                 </Button>
