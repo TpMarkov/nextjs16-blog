@@ -1,13 +1,11 @@
-"use client"
-
-import React, {useTransition} from 'react'
-import {useQuery} from "convex/react";
+import React, {Suspense} from 'react'
 import {api} from "@/convex/_generated/api";
 import {Card, CardContent, CardFooter, CardHeader, CardTitle} from "@/components/ui/card";
 import Image from "next/image";
-import {motion} from "framer-motion";
 import Link from "next/link";
 import {buttonVariants} from "@/components/ui/button";
+import {fetchQuery} from "convex/nextjs";
+import {Skeleton} from "@/components/ui/skeleton";
 
 const images = [
       "https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=1200&q=80",
@@ -41,9 +39,7 @@ const images = [
     ]
 ;
 
-
 const Page = () => {
-  const data = useQuery(api.posts.getPosts)
 
   return (
       <div className={"py-12"}>
@@ -53,50 +49,79 @@ const Page = () => {
             our
             team</p>
         </div>
-
-        <div className={"grid gap-6 md:grid-cols-2 lg:grid-cols-3"}>
-          {data?.map((item, index) => (
-              <motion.div
-                  key={item._id}
-                  initial={{opacity: 0, y: 20}}
-                  animate={{opacity: 1, y: 0}}
-                  transition={{duration: 0.4, delay: index * 0.1}}
-              >
-                <Card className="rounded-2xl pt-0 shadow-lg hover:shadow-xl transition-all overflow-hidden">
-                  <motion.div whileHover={{scale: 1.05}} className="h-48 w-full relative overflow-hidden">
-                    <Image
-                        src={images[index] || images[0]}
-                        alt={item.title}
-                        fill
-                        className="object-cover transition-transform duration-300"
-                    />
-                  </motion.div>
-
-                  <CardHeader>
-                    <CardTitle
-                        className="text-xl font-semibold hover:text-blue-500/50">
-                      <Link href={`/blog/${item._id}`}>
-                        {item.title}
-                      </Link>
-                    </CardTitle>
-                  </CardHeader>
-
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground hover:text-muted-foreground/50 dark:text-gray-300">
-                      {item.body}
-                    </p>
-                  </CardContent>
-                  <CardFooter>
-                    <Link className={buttonVariants({variant: "outline"})}
-                          href={`/blog/${item._id}`}>
-                      Read more
-                    </Link>
-                  </CardFooter>
-                </Card>
-              </motion.div>
-          ))}
-        </div>
+        <Suspense fallback={<SkeletonLoadingUI/>}>
+          <LoadBlogList/>
+        </Suspense>
       </div>
   )
 }
 export default Page;
+
+
+async function LoadBlogList() {
+
+  const data = await fetchQuery(api.posts.getPosts);
+
+
+  return (
+      <div className={"grid gap-6 md:grid-cols-2 lg:grid-cols-3"}>
+        {data?.map((item, index) => (
+            <div
+                key={item._id}
+            >
+              <Card
+                  className="group rounded-2xl pt-0 shadow-lg hover:shadow-xl transition-all overflow-hidden">
+
+                <div className="h-48 w-full relative overflow-hidden">
+                  <Image
+                      src={item.imageUrl ?? "https://images.unsplash.com/photo-1557683304-673a23048d34?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGdyYWRpZW50JTIwYmFja2dyb3VuZHxlbnwwfHwwfHx8MA%3D%3D"}
+                      alt={item.title}
+                      fill
+                      className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                  />
+                </div>
+
+                <CardHeader>
+                  <CardTitle className="text-xl font-semibold hover:text-blue-500/50">
+                    <Link href={`/blog/${item._id}`}>
+                      {item.title}
+                    </Link>
+                  </CardTitle>
+                </CardHeader>
+
+                <CardContent>
+                  <p className="text-sm text-muted-foreground hover:text-muted-foreground/50 dark:text-gray-300">
+                    {item.body}
+                  </p>
+                </CardContent>
+
+                <CardFooter>
+                  <Link className={buttonVariants({variant: "outline"})} href={`/blog/${item._id}`}>
+                    Read more
+                  </Link>
+                </CardFooter>
+
+              </Card>
+            </div>
+        ))}
+      </div>
+  )
+}
+
+
+function SkeletonLoadingUI() {
+  return (
+      <div className="grid gap-6 md:grid-cols-3 lg:grid-cols-3">
+        {[...Array(3)].map((_, i) => (
+            <div key={i} className={"flex flex-col space-y-3"}>
+              <Skeleton className={"h-48 w-full rounded-xl"}/>
+              <div className={"space-y-2 flex flex-col"}>
+                <Skeleton className={"h-6 w-3/4"}/>
+                <Skeleton className={"h-4 w-full"}/>
+                <Skeleton className={"h-4 w-3/4"}/>
+              </div>
+            </div>
+        ))}
+      </div>
+  )
+}

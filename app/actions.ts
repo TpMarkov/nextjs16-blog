@@ -14,16 +14,44 @@ export async function createBlogPost(values: z.infer<typeof postSchema>) {
     throw new Error("Failed to parse blog form")
   }
 
-  const token = await getToken();
+  try {
+    const token = await getToken();
 
-  await fetchMutation(api.posts.createPost, {
-    body: parsedData.data.content,
-    title: parsedData.data.title,
-  }, {
-    token
-  })
+    const imageUrl = await fetchMutation(api.posts.generateImageUploadUrl, {}, {token})
 
-  return redirect(`/blog`)
+    const uploadResult = await fetch(imageUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type":
+        parsedData.data.image.type,
+      },
+      body: parsedData.data.image
+    })
+
+    if (!uploadResult.ok) {
+      return {
+        error: "Failed to upload image"
+      }
+    }
+
+
+    const {storageId} = await uploadResult.json();
+
+    await fetchMutation(api.posts.createPost, {
+      body: parsedData.data.content,
+      title: parsedData.data.title,
+      imageStorageId: storageId
+    }, {
+      token
+    })
+
+  } catch (e) {
+    return {
+      error: "Failed to create a post"
+    }
+  }
+
+  redirect(`/blog`)
 
 }
 
