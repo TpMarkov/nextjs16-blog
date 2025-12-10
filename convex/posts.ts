@@ -1,12 +1,12 @@
-import {mutation, query} from "./_generated/server";
-import {ConvexError, v} from "convex/values"
-import {authComponent} from "./auth";
+import { mutation, query } from "./_generated/server";
+import { ConvexError, v } from "convex/values"
+import { authComponent } from "./auth";
 
 export const createPost = mutation({
   args: {
     title: v.string(),
     body: v.string(),
-    imageStorageId: v.id("_storage")
+    imageStorageId: v.optional(v.id("_storage"))
   }, handler: async (ctx, args) => {
     const user = await authComponent.safeGetAuthUser(ctx)
 
@@ -38,8 +38,6 @@ export const getPosts = query({
         imageUrl: resolvedImageUrl
       }
     }))
-
-    return posts
   }
 })
 

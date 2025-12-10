@@ -1,11 +1,11 @@
 "use server"
 
-import {postSchema} from "@/app/schemas/blog";
-import {z} from "zod"
-import {fetchMutation} from "convex/nextjs";
-import {api} from "@/convex/_generated/api";
-import {redirect} from "next/navigation";
-import {getToken} from "@/lib/auth-server";
+import { postSchema } from "@/app/schemas/blog";
+import { z } from "zod"
+import { fetchMutation } from "convex/nextjs";
+import { api } from "@/convex/_generated/api";
+import { redirect } from "next/navigation";
+import { getToken } from "@/lib/auth-server";
 
 export async function createBlogPost(values: z.infer<typeof postSchema>) {
   const parsedData = postSchema.safeParse(values)
@@ -17,30 +17,34 @@ export async function createBlogPost(values: z.infer<typeof postSchema>) {
   try {
     const token = await getToken();
 
-    const imageUrl = await fetchMutation(api.posts.generateImageUploadUrl, {}, {token})
+    let storageId: string | undefined = undefined;
 
-    const uploadResult = await fetch(imageUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type":
-        parsedData.data.image.type,
-      },
-      body: parsedData.data.image
-    })
+    // Only upload image if one is provided
+    if (parsedData.data.image) {
+      const imageUrl = await fetchMutation(api.posts.generateImageUploadUrl, {}, { token })
 
-    if (!uploadResult.ok) {
-      return {
-        error: "Failed to upload image"
+      const uploadResult = await fetch(imageUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": parsedData.data.image.type,
+        },
+        body: parsedData.data.image
+      })
+
+      if (!uploadResult.ok) {
+        return {
+          error: "Failed to upload image"
+        }
       }
+
+      const result = await uploadResult.json();
+      storageId = result.storageId;
     }
-
-
-    const {storageId} = await uploadResult.json();
 
     await fetchMutation(api.posts.createPost, {
       body: parsedData.data.content,
       title: parsedData.data.title,
-      imageStorageId: storageId
+      imageStorageId: storageId as any
     }, {
       token
     })
