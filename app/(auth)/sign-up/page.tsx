@@ -94,10 +94,10 @@ const Page = () => {
                                                            href={"/login"}>Login </Link>here
               </span>
               <Button type={"submit"} disabled={isPending}>
-                {isPending ? (
-                    <Loader2Icon className={"size-4 animate-spin"}/>
-                ) : "Sign Up"}
-              </Button>
+              {isPending ? (
+                  <Loader2Icon className={"size-4 animate-spin"}/>
+              ) : "Sign Up"}
+            </Button>
             </FieldGroup>
 
           </form>

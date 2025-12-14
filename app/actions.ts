@@ -1,11 +1,12 @@
 "use server"
 
-import { postSchema } from "@/app/schemas/blog";
-import { z } from "zod"
-import { fetchMutation } from "convex/nextjs";
-import { api } from "@/convex/_generated/api";
-import { redirect } from "next/navigation";
-import { getToken } from "@/lib/auth-server";
+import {postSchema} from "@/app/schemas/blog";
+import {z} from "zod";
+import {fetchMutation} from "convex/nextjs";
+import {api} from "@/convex/_generated/api";
+import {redirect} from "next/navigation";
+import {getToken} from "@/lib/auth-server";
+import {revalidatePath} from "next/cache";
 
 export async function createBlogPost(values: z.infer<typeof postSchema>) {
   const parsedData = postSchema.safeParse(values)
@@ -21,7 +22,7 @@ export async function createBlogPost(values: z.infer<typeof postSchema>) {
 
     // Only upload image if one is provided
     if (parsedData.data.image) {
-      const imageUrl = await fetchMutation(api.posts.generateImageUploadUrl, {}, { token })
+      const imageUrl = await fetchMutation(api.posts.generateImageUploadUrl, {}, {token})
 
       const uploadResult = await fetch(imageUrl, {
         method: "POST",
@@ -49,14 +50,18 @@ export async function createBlogPost(values: z.infer<typeof postSchema>) {
       token
     })
 
+
   } catch (e) {
     return {
       error: "Failed to create a post"
     }
   }
 
-  redirect(`/blog`)
+  revalidatePath("/blog")
 
+  redirect(`/blog`)
 }
+
+
 
 

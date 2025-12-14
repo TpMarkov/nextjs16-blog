@@ -43,7 +43,9 @@ const Page = () => {
       <div className="py-12">
         {/*Header*/}
         <div className={"text-center mb-12"}>
-          <h1 className={"text-4xl font-extrabold tracking-tight sm:text-5xl mb-3"}>Create post</h1>
+          <h1 className={"text-4xl font-extrabold tracking-tight sm:text-5xl mb-3"}><span
+              className={"text-primary"}>Create</span>{" "}
+            post</h1>
           <p className={"text-xl text-muted-foreground"}>Create your own blog article...</p>
         </div>
 
@@ -58,7 +60,14 @@ const Page = () => {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={form.handleSubmit(onSubmit)}>
+            <form onSubmit={form.handleSubmit(onSubmit)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && !e.shiftKey) {
+                      e.preventDefault();
+                      form.handleSubmit(onSubmit)();
+                    }
+                  }}
+            >
               <FieldGroup>
                 <Controller render={({field, fieldState}) => (
                     <Field>
