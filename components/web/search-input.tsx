@@ -14,7 +14,7 @@ export const SearchInput = () => {
 
   const results = useQuery(api.posts.searchPosts, searchQuery.length >= 2 ? {limit: 5, term: searchQuery} : "skip")
 
-  const hyandleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setOpen(true)
     setSearchQuery(e.currentTarget.value)
 
@@ -27,7 +27,7 @@ export const SearchInput = () => {
           <Input type={"search"} placeholder={"Search posts..."}
                  className={"w-full pl-8 bg-background"}
                  value={searchQuery}
-                 onChange={hyandleInputChange}
+                 onChange={handleInputChange}
           />
         </div>
         {open && searchQuery.length >= 2 && (
