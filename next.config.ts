@@ -4,6 +4,7 @@ import {proxy} from "@/proxy";
 const nextConfig: NextConfig = {
   /* config options here */
   reactCompiler: true,
+  cacheComponents: true,
   images: {
     remotePatterns: [
       {
