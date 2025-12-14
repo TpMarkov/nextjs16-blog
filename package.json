@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@convex-dev/better-auth": "^0.9.11",
+    "@convex-dev/presence": "^0.3.0",
+    "@daveyplate/better-auth-ui": "^3.2.13",
     "@hookform/resolvers": "^5.2.2",
     "@prisma/adapter-pg": "^7.1.0",
     "@prisma/client": "^7.1.0",

@@ -8,6 +8,7 @@ import {authClient} from "@/lib/auth-client";
 import {useRouter} from "next/navigation";
 import {toast} from "sonner";
 
+
 const Navbar = () => {
   const {isAuthenticated} = useConvexAuth()
   const router = useRouter()
@@ -39,13 +40,14 @@ const Navbar = () => {
               <Button onClick={() => authClient.signOut({
                 fetchOptions: {
                   onSuccess: () => {
-                    toast.success("Loged out successfully!");
+                    toast.success("Logged out successfully!");
                     router.push("/")
                   }, onError: (error) => {
                     toast.error(error.error.message)
                   }
                 }
               })}>
+
                 Sign Out
               </Button>
               <ThemeToggle/>

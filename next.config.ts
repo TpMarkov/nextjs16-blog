@@ -1,4 +1,5 @@
 import type {NextConfig} from "next";
+import {proxy} from "@/proxy";
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -12,6 +13,10 @@ const nextConfig: NextConfig = {
       }, {
         protocol: "https",
         hostname: "original-salmon-783.convex.cloud",
+        port: ""
+      }, {
+        protocol: "https",
+        hostname: "avatar.vercel.sh",
         port: ""
       }
     ]
