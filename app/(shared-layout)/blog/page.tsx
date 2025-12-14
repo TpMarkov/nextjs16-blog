@@ -4,10 +4,7 @@ import {fetchQuery} from "convex/nextjs";
 import {Skeleton} from "@/components/ui/skeleton";
 import {BlogCard} from "./blog-card";
 import {Metadata} from "next";
-
-
-// export const dynamic = "force-static"
-// export const revalidate = 30
+import {cacheLife, cacheTag} from "next/cache";
 
 export const metadata: Metadata = {
   title: "Blog | Next.js 16 Tutorial",
@@ -38,6 +35,7 @@ export default Page;
 
 
 async function LoadBlogList() {
+
 
   const data = await fetchQuery(api.posts.getPosts);
 

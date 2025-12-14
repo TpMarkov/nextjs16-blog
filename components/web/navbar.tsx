@@ -7,6 +7,7 @@ import {useConvexAuth} from "convex/react";
 import {authClient} from "@/lib/auth-client";
 import {useRouter} from "next/navigation";
 import {toast} from "sonner";
+import {SearchInput} from "@/components/web/search-input";
 
 
 const Navbar = () => {
@@ -33,10 +34,13 @@ const Navbar = () => {
               Create
             </Link>
           </div>)}
-
         </div>
 
         {isAuthenticated ? (<div className={"flex items-center gap-2"}>
+              {/*Search bar*/}
+              <div className="hidden md:block mr-2">
+                <SearchInput/>
+              </div>
               <Button onClick={() => authClient.signOut({
                 fetchOptions: {
                   onSuccess: () => {
