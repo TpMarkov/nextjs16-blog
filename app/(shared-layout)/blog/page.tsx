@@ -38,10 +38,12 @@ const Page = () => {
       <div className={"py-12"}>
         <div className={"text-center pb-12"}>
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight">
-          <span className="bg-gradient-to-r text-3xl from-primary via-chart-2 to-accent bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r text-5xl from-primary via-chart-2 to-accent bg-clip-text text-transparent">
                 Our
               </span>
-            Blog
+            <span className={"text-5xl"}>
+              Blog
+            </span>
           </h1>
           <p className={"pt-4 max-w-2xl text-muted-foreground text-xl mx-auto"}>Insights, thoughts, and trends from
             our team</p>
