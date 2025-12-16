@@ -37,12 +37,12 @@ Check out the live application here:
 
 | Home Page | Post Editor |
 | :---: | :---: |
-| ![Home Page](https://placehold.co/300x200?text=Home+Page+Preview) | ![Post Editor](https://placehold.co/300x200?text=Editor+Preview) |
+| ![Home Page](https://i.ibb.co/TB4QkG69/Home.png) | ![Post Editor](https://i.ibb.co/4whwLFY9/post-editor.png) |
 | *Modern Landing Page* | *Rich Text Editing* |
 
 | Blog Post | Comments Section |
 | :---: | :---: |
-| ![Blog Post](https://placehold.co/300x200?text=Blog+Post+View) | ![Comments](https://placehold.co/300x200?text=Comments+UI) |
+| ![Blog Post](https://i.ibb.co/bjZ8hWcy/blog-page.png) | ![Comments](https://i.ibb.co/vvhNQXTV/post-comments.png) |
 | *Clean Reading Experience* | *Real-time Discussion* |
 
 ## 6. Getting Started (For Developers)
