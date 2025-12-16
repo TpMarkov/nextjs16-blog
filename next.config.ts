@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
         port: ""
       }, {
         protocol: "https",
-        hostname: "original-salmon-783.convex.cloud",
+        hostname: "sincere-owl-95.convex.cloud",
         port: ""
       }, {
         protocol: "https",
