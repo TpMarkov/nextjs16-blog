@@ -39,7 +39,7 @@ const Page = () => {
         <div className={"text-center pb-12"}>
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight">
           <span className="bg-gradient-to-r text-5xl from-primary via-chart-2 to-accent bg-clip-text text-transparent">
-                Our
+                Our{" "}
               </span>
             <span className={"text-5xl"}>
               Blog
