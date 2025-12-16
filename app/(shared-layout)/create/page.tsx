@@ -43,10 +43,13 @@ const Page = () => {
       <div className="py-12">
         {/*Header*/}
         <div className={"text-center mb-12"}>
-          <h1 className={"text-4xl font-extrabold tracking-tight sm:text-5xl mb-3"}><span
-              className={"text-primary"}>Create</span>{" "}
-            post</h1>
-          <p className={"text-xl text-muted-foreground"}>Create your own blog article...</p>
+
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight">
+          <span className="bg-gradient-to-r text-3xl from-primary via-chart-2 to-accent bg-clip-text text-transparent">
+                Create
+              </span>
+          </h1>
+          <p className={"text-xl text-muted-foreground"}>your own blog article...</p>
         </div>
 
         {/*Form card*/}
