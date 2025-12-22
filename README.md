@@ -53,7 +53,7 @@ Check out the live application here:
 
 | Blog Post | Comments Section |
 | :---: | :---: |
-| ![Blog Post](https://i.ibb.co/bjZ8hWcy/blog-page.png) | ![Comments](https://i.ibb.co/vvhNQXTV/post-comments.png) |
+| ![Blog Post](https://i.ibb.co/bjZ8hWcy/blog-page.png) | ![Comments](https://i.ibb.co/wttS81x/post-comments.png) |
 | *Clean Reading Experience* | *Real-time Discussion* |
 
 ## 6. Getting Started (For Developers)
