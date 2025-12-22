@@ -1,5 +1,15 @@
 # NextPro Blog - Modern Real-time Blogging Platform
 
+A high-performance real-time blogging platform built with Next.js 16 and Convex, featuring a premium writing experience and seamless user interactions.
+
+![Next.js](https://img.shields.io/badge/Next.js-16.0.7-black?style=flat-square&logo=next.js)
+![React](https://img.shields.io/badge/React-19.2.0-61DAFB?style=flat-square&logo=react&logoColor=black)
+![Convex](https://img.shields.io/badge/Convex-1.30.0-EE4337?style=flat-square&logo=convex&logoColor=white)
+![Better Auth](https://img.shields.io/badge/Better%20Auth-1.3.27-blue?style=flat-square)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind%20v4-38B2AC?style=flat-square&logo=tailwind-css)
+![Prisma](https://img.shields.io/badge/Prisma-7.1.0-2D3748?style=flat-square&logo=prisma)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue?style=flat-square&logo=typescript)
+
 ## 1. Project Overview
 **NextPro Blog** is a cutting-edge blogging platform designed to share ideas with the world. It is built for content creators who value a beautiful, distraction-free writing environment, and for readers who want to engage in real-time.
 
