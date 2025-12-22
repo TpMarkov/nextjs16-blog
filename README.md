@@ -1,4 +1,3 @@
-![NextPro Banner](public/banner.jpg)
 
 # NextPro Blog - Modern Real-time Blogging Platform
 
