@@ -1,3 +1,5 @@
+![NextPro Banner](public/banner.jpg)
+
 # NextPro Blog - Modern Real-time Blogging Platform
 
 A high-performance real-time blogging platform built with Next.js 16 and Convex, featuring a premium writing experience and seamless user interactions.
